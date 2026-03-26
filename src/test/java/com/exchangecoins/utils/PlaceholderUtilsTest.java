@@ -9,9 +9,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Тесты для утилиты PlaceholderUtils
- */
 class PlaceholderUtilsTest {
 
     @Test
