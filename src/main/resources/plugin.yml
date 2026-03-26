@@ -1,0 +1,94 @@
+name: ExchangeCoins
+version: '1.0.0'
+main: com.exchangecoins.ExchangeCoinsPlugin
+api-version: '1.16'
+description: Биржа для обмена PlayerPoints на виджеты
+author: kingus
+website: https://github.com/exchangecoins
+
+depend:
+  - PlayerPoints
+
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  burse:
+    description: Открыть меню биржи
+    usage: /<command>
+    permission: exchangecoins.burse
+    aliases: [exchange, bursa]
+
+  ecoins:
+    description: Основная команда плагина
+    usage: /<command> <subcommand> [args]
+    permission: exchangecoins.ecoins
+    aliases: [exchangecoins, ec]
+
+permissions:
+  exchangecoins.ecoins:
+    description: Доступ к основной команде плагина
+    default: true
+    children:
+      exchangecoins.order: true
+      exchangecoins.balance: true
+      exchangecoins.stats: true
+      exchangecoins.cancel: true
+      exchangecoins.myorders: true
+
+  exchangecoins.burse:
+    description: Доступ к меню биржи
+    default: true
+    children:
+      exchangecoins.ecoins: true
+
+  exchangecoins.order:
+    description: Создание заказов на бирже
+    default: true
+
+  exchangecoins.balance:
+    description: Проверка баланса виджетов
+    default: true
+
+  exchangecoins.stats:
+    description: Просмотр статистики
+    default: true
+
+  exchangecoins.cancel:
+    description: Отмена своих заказов
+    default: true
+
+  exchangecoins.myorders:
+    description: Просмотр своих заказов
+    default: true
+
+  exchangecoins.admin:
+    description: Все административные команды
+    default: op
+    children:
+      exchangecoins.ecoins: true
+      exchangecoins.give: true
+      exchangecoins.take: true
+      exchangecoins.set: true
+      exchangecoins.reload: true
+      exchangecoins.delete: true
+
+  exchangecoins.give:
+    description: Выдача виджетов игрокам
+    default: op
+
+  exchangecoins.take:
+    description: Снятие виджетов у игроков
+    default: op
+
+  exchangecoins.set:
+    description: Установка баланса виджетов
+    default: op
+
+  exchangecoins.reload:
+    description: Перезагрузка конфигурации
+    default: op
+
+  exchangecoins.delete:
+    description: Удаление чужих заказов
+    default: op

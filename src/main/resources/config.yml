@@ -1,0 +1,166 @@
+# ExchangeCoins - Конфигурация плагина
+# Версия: 1.0.0
+
+# Настройки меню биржи
+menu:
+  title: "&6&lБиржа Коинов"
+  size: 54
+  # Настройки пагинации
+  pagination:
+    items_per_page: 45      # Количество заказов на странице
+  
+  items:
+    order_slot:
+      material: GOLD_INGOT
+      name: "&eЗаказ #&6%order_id%"
+      lore:
+        - "&7Продавец: &f%seller%"
+        - "&7Коины: &f%coins_amount%"
+        - "&7Цена: &f%price% виджетов"
+        - "&7Истекает через: &f%time_left%"
+        - ""
+        - "&a&l■ &aНажмите для покупки"
+    filler:
+      material: GRAY_STAINED_GLASS_PANE
+      name: " "
+      slots:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 17
+        - 18
+        - 26
+        - 27
+        - 35
+        - 36
+        - 44
+        - 45
+        - 46
+        - 47
+        - 48
+        - 49
+        - 50
+        - 51
+        - 52
+        - 53
+    # Кнопка "Предыдущая страница"
+    previous_page:
+      material: ARROW
+      name: "&e&l← Предыдущая"
+      disabled_name: "&7&l← Предыдущая"
+      slot: 48
+    # Кнопка "Обновить"
+    refresh:
+      material: CLOCK
+      name: "&e&lОбновить &7(&e%page%&7/&e%total_pages%&7)"
+      slot: 49
+    # Кнопка "Следующая страница"
+    next_page:
+      material: ARROW
+      name: "&e&lСледующая →"
+      disabled_name: "&7&lСледующая"
+      slot: 50
+
+# Настройки заказов
+orders:
+  default_expire_days: 6
+  max_orders_per_player: 5
+  commission_percent: 0
+  min_order_amount: 1
+  max_order_amount: 1000000
+  min_price: 1
+  max_price: 1000000000
+  order_cooldown_seconds: 30
+
+# Бусты (донаты) - расширяют возможности на бирже
+# После изменения конфига выполните /ecoins reload
+#
+# Пример добавления буста:
+#   donat-vip:
+#     permission: ecoins.boost.vip
+#     max-slots: 7
+#     expire_days: 20
+#
+# Пример выдачи прав игроку:
+#   /lp user <ник> permission set ecoins.boost.vip true
+boosts:
+  donat-1:
+    permission: ecoins.boost.donat1
+    max-slots: 3
+    expire_days: 12
+  donat-2:
+    permission: ecoins.boost.donat2
+    max-slots: 5
+    expire_days: 16
+  donat-3:
+    permission: ecoins.boost.donat3
+    max-slots: 10
+    expire_days: 30
+
+# Настройки виджетов
+widgets:
+  starting_balance: 0
+  max_balance: 9223372036854775807
+
+# Система уведомлений
+notifications:
+  enabled: true
+  notify_on_purchase: true
+  notify_before_expiry_hours: 24
+
+# Статистика
+stats:
+  enabled: true
+
+# Настройки базы данных
+database:
+  type: sqlite
+  # MySQL настройки (если type: mysql)
+  mysql:
+    host: localhost
+    port: 3306
+    database: exchangecoins
+    username: root
+    password: ''
+    useSSL: false
+    autoReconnect: true
+
+# Настройки сообщений
+messages:
+  prefix: "&8[&6ExchangeCoins&8] "
+  order_created: "&aВаш заказ создан! ID: &e%id%"
+  order_purchased: "&aВы купили &e%coins% &aкоинов за &e%price% &aвиджетов!"
+  order_sold: "&aВаши коины купили! Вы получили &e%price% &aвиджетов!"
+  order_expired: "&cВаш заказ истёк! Возвращаем &e%coins% &cкоинов."
+  insufficient_funds: "&cНедостаточно виджетов!"
+  insufficient_coins: "&cНедостаточно коинов PlayerPoints!"
+  no_orders: "&7На бирже нет активных заказов"
+  reload_success: "&aКонфигурация перезаружена!"
+  player_not_found: "&cИгрок не найден!"
+  unknown_command: "&cНеизвестная команда!"
+  no_permission: "&cУ вас нет прав на это!"
+  balance_info: "&7Баланс &f%player%&7: &e%balance% виджетов"
+  give_success: "&aВы выдали &e%amount% &aвиджетов игроку &e%player%"
+  take_success: "&aВы сняли &e%amount% &aвиджетов у игрока &e%player%"
+  set_success: "&aВы установили баланс &e%player% &aна &e%amount% виджетов"
+  max_orders_reached: "&cВы достигли максимального количества заказов!"
+  cooldown_active: "&cПодождите &e%seconds% &cсекунд перед созданием нового заказа!"
+  invalid_amount: "&cНекорректное количество!"
+  invalid_price: "&cНекорректная цена!"
+  commission_info: "&7Комиссия биржи: &e%percent%&7% (&e%amount% виджетов&7)"
+  stats_title: "&6&l=== Статистика игрока ==="
+  stats_line: "&7Продано: &e%sold% &7| Куплено: &e%bought% &7| Заработано: &e%earned%"
+  player_not_online: "&cИгрок должен быть онлайн!"
+
+# Логирование
+logging:
+  enabled: true
+  log_transactions: true
+  log_orders: true
