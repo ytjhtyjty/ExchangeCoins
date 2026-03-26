@@ -7,9 +7,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Тесты для класса Order
- */
 class OrderTest {
 
     @Test
