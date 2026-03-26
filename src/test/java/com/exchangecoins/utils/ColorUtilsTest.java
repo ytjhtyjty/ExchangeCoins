@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Тесты для утилиты ColorUtils
- */
 class ColorUtilsTest {
 
     @Test
