@@ -526,9 +526,9 @@ public class EcoinsCommand implements CommandExecutor, TabCompleter {
                 message = plugin.getConfig().getString("messages.insufficient_coins", "&cНедостаточно коинов PlayerPoints!");
                 break;
             case COOLDOWN_ACTIVE:
-                long cooldown = plugin.getConfig().getLong("orders.order_cooldown_seconds", 30);
+                long remainingSeconds = plugin.getOrderManager().getRemainingCooldown(player.getUniqueId());
                 message = plugin.getConfig().getString("messages.cooldown_active", "&cПодождите &e%seconds% &cсекунд перед созданием нового заказа!");
-                message = message.replace("%seconds%", String.valueOf(cooldown));
+                message = message.replace("%seconds%", String.valueOf(remainingSeconds));
                 break;
             default:
                 message = "&cПроизошла ошибка при создании заказа!";

@@ -1,6 +1,7 @@
 package com.exchangecoins.placeholders;
 
 import com.exchangecoins.ExchangeCoinsPlugin;
+import com.exchangecoins.menu.BurseMenu;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -137,8 +138,14 @@ public class ExchangeCoinsPlaceholder extends PlaceholderExpansion {
 
 
     private String getCurrentPagePlaceholder(OfflinePlayer player) {
-
-
-        return "1";
+        try {
+            BurseMenu menu = plugin.getBurseListener().getMenu(player.getUniqueId());
+            if (menu != null) {
+                return String.valueOf(menu.getCurrentPage() + 1);
+            }
+            return "1";
+        } catch (Exception e) {
+            return "1";
+        }
     }
 }

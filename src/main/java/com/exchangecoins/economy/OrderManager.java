@@ -12,21 +12,42 @@ import org.bukkit.event.player.PlayerEvent;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class OrderManager {
 
     private final ExchangeCoinsPlugin plugin;
+    private final Map<UUID, Long> playerCooldowns = new java.util.concurrent.ConcurrentHashMap<>();
 
     public OrderManager(ExchangeCoinsPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    public long getRemainingCooldown(UUID playerUuid) {
+        Long lastOrderTime = playerCooldowns.get(playerUuid);
+        if (lastOrderTime == null) {
+            return 0;
+        }
+        long cooldownSeconds = plugin.getConfig().getLong("orders.order_cooldown_seconds", 30);
+        long elapsed = (System.currentTimeMillis() - lastOrderTime) / 1000;
+        return Math.max(0, cooldownSeconds - elapsed);
+    }
+
+    public void updateCooldown(UUID playerUuid) {
+        playerCooldowns.put(playerUuid, System.currentTimeMillis());
     }
 
 
     public CompletableFuture<OrderResult> createOrder(Player player, int coinsAmount, long price) {
         return CompletableFuture.supplyAsync(() -> {
             try {
+
+                long remainingCooldown = getRemainingCooldown(player.getUniqueId());
+                if (remainingCooldown > 0) {
+                    return new OrderResult(OrderStatus.COOLDOWN_ACTIVE);
+                }
 
                 int minAmount = plugin.getConfig().getInt("orders.min_order_amount", 1);
                 int maxAmount = plugin.getConfig().getInt("orders.max_order_amount", 1000000);
@@ -92,6 +113,8 @@ public class OrderManager {
 
 
                 plugin.getDatabaseManager().incrementOrdersCreated(player.getUniqueId().toString());
+
+                updateCooldown(player.getUniqueId());
 
                 return new OrderResult(OrderStatus.SUCCESS, order);
             } catch (Exception e) {

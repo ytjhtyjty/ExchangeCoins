@@ -8,7 +8,7 @@ menu:
   # Настройки пагинации
   pagination:
     items_per_page: 45      # Количество заказов на странице
-  
+
   items:
     order_slot:
       material: GOLD_INGOT
